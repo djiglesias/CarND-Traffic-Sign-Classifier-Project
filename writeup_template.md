@@ -15,6 +15,8 @@ This project explores how to use TensorFlow to train a neural network to recogni
 [image2]: ./images/grayscale.png "Grayscale"
 [image3]: ./images/normalize.png "Normalize"
 [image4]: ./images/histogram_post.png "Preprocessed Histogram"
+[image5]: ./images/brightness.png "Random Brightness"
+[image6]: ./images/rotate.png "Random Rotation"
 
 ---
 ## Data Set Summary & Exploration
@@ -36,17 +38,17 @@ The original data set contained an uneven distribution of images amoungst the tr
 ---
 ## Design & Test a Model Architecture
 
-#### 1. Preprocessing the Data Set
+### 1. Preprocessing the Data Set
 
 #### Grayscaling the Images
 The images were converted to grayscale reducing their size from 32x32x3 to 32x32x1 which ultimately reduces the overhead for the neural network by a third. Grayscale allows an image to be represented as shades and can better be converted into gradients than if using an RGB image. Since TensorFlow is looking for a variable of size (?, 32, 32, 1) to train the network, I experienced issues with image size when converting to scale with OpenCV since it deemed the fourth dimension of '1' unnecessary and returned an image set of size (?, 32, 32) which is incompatible. Instead, I used numpy.sum() with option `keepdims=True` to average the three colour channels to a single value while maintaining a compatible shape. 
 
-![alt text][image4]
+![alt text][image2]
 
 #### Normalize the Images
 The grayscaled images were normalized from range (0,255) to (-1,1) ...
 
-![alt text][image4]
+![alt text][image3]
 
 #### Augment Training Data Set
 Since the data set was unevenly distributed, my worry was that the network would train more on certain signs more than others. To even the playing field I simply concatenated the images of each class to themselves until they reached a minimum threshold provided (4000 in my case) so that all the classes would have an equal prediction accuracy.
@@ -54,34 +56,50 @@ Since the data set was unevenly distributed, my worry was that the network would
 ![alt text][image4]
 
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
-My final model consisted of the following layers:
+#### 2. Model Architecture
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 Grayscale image   							| 
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 14x14x6 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 1x1x400 	|
+| RELU					|												|
+
+| Flatten          | outputs 400  |
+| Concatenate      | outputs 800  |
+| Dropout          |   | 
+| Fully connected		| outputs 43					|
+
  
 
+#### 3. Training Model
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. The images and labels were shuffled to prevent the model from learning the order of the images and to reduce the probability of getting multiple images of the same time in a row since the raw data sets are organized in clumps. Since there are multiple of the same images in the data set from the augmentation step to even out the frequencies of each image, we need to differentiate the images from each other by applying a random rotation (left) and randomly adjusting the brightness (right).
 
-To train the model, I used an ....
+![alt text][image5] | ![alt text][image6]
+
+The training parameters used did not differ much from the LeNet lab, with exception to a slightly lower learning rate and several more epochs to account for the lower rate.
+
+
+| **Parameter**        		|     **Value**	  	| 
+|:---------------------:|:-----------------:| 
+| Sigma | 0.1 |
+| Mu | 0 |
+| Batch Size | 128 |
+| Epochs | 30 |
+| Learning Rate | 0.0008 |
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 95.2%
+* validation set accuracy of 95.2%
+* test set accuracy of 93.0%
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
