@@ -20,7 +20,7 @@ This project explores how to use TensorFlow to train a neural network to recogni
 * The shape of a traffic sign image is 32x32x3.
 * The number of unique classes/labels in the data set is 43.
 
-#### 2. Visualization of the data set.
+### 2. Visualization of the data set.
 
 The original data set contained an uneven distribution of images amoungst the traffic sign classes with the minimum  of 180 and a maximum of 2010 images in a single class. The histogram below shows the frequency of images in each of the data sets (training, validation, testing) with the frequency of on the y-axis and sign classification on the x-axis.
 
@@ -41,7 +41,7 @@ The images were converted to grayscale reducing their size from 32x32x3 to 32x32
 </p>
 
 #### Normalize the Images
-The grayscaled images were normalized from range (0,255) to (-1,1) ...
+The grayscaled images were normalized from range (0,255) to (-1,1) to reduce computation when training the network.
 
 <p align="center">
   <img src="./images/normalize.png">
@@ -54,7 +54,7 @@ Since the data set was unevenly distributed, my worry was that the network would
   <img src="./images/histogram_post.png">
 </p>
 
-#### 2. Model Architecture
+### 2. Model Architecture
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -73,9 +73,10 @@ Since the data set was unevenly distributed, my worry was that the network would
 
  
 
-#### 3. Training Model
+### 3. Training Model
 
 To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. The images and labels were shuffled to prevent the model from learning the order of the images and to reduce the probability of getting multiple images of the same time in a row since the raw data sets are organized in clumps. Since there are multiple of the same images in the data set from the augmentation step to even out the frequencies of each image, we need to differentiate the images from each other by applying a random rotation and randomly adjusting the brightness.
+
 
 <p float="center">
   <img src="./images/rotate.png" />
@@ -84,6 +85,7 @@ To train the model several steps were performed to randomize the data before eac
 <p float="center">
   <img src="./images/brightness.png" />
 </p>
+
 
 The training parameters used did not differ much from the LeNet lab, with exception to a slightly lower learning rate and several more epochs to account for the lower rate.
 
@@ -97,24 +99,13 @@ The training parameters used did not differ much from the LeNet lab, with except
 | Learning Rate | 0.0008 |
 
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+### 4. Approach for Training Model
 
-My final model results were:
-* training set accuracy of 95.2%
+Final model results were:
 * validation set accuracy of 95.2%
 * test set accuracy of 93.0%
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+... more to come
  
 
 ---
@@ -122,14 +113,14 @@ If a well known architecture was chosen:
 
 ### 1. German Traffic Signs from the Web
 
-Here are five German traffic signs that I found on the web after grayscale and normalization:
+Here are six German traffic signs that I found on the web after grayscale and normalization:
 
 <p float="center">
   <img src="./images/custom_images.png" />
 </p>
 
 
-#### 2. Model Predictions
+### 2. Model Predictions
 Here are the results of the prediction:
 
 | Image			        |     Prediction	       | 
@@ -142,15 +133,12 @@ Here are the results of the prediction:
 | Road Work         | Dangerous Curve Right  |
 
 
-The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. The five images that were classified correctly contained simple geometric shapes, such as arrows and numbers, with relatively large sides for the model to pick up on while the sign that was misclassified had a more complex shape which was distorted by the low photo resolution. Overall, the model predicted the signs very well.
 
 
-#### 3. Model Accuracy
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+### 3. Model Accuracy
+To provide some insight to the model predictions, the below image shows the input image on the left hand side followed by the top five model predictions with their confidence level in percent. For the first five images it can be seen that the model predicted the sign classification correctly with 100.0% confidence while showing 0.0% for the remaining images, however the last image was misclassified and showed a 99.0% confidence. 
 
 <p float="center">
   <img src="./images/prediction.png" />
 </p>
-
-
-For the second image ... 
