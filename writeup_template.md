@@ -9,15 +9,6 @@ This project explores how to use TensorFlow to train a neural network to recogni
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
-[//]: # (Image References)
-
-[image1]: ./images/histogram_raw.png "Raw Data Histogram"
-[image2]: ./images/grayscale.png "Grayscale"
-[image3]: ./images/normalize.png "Normalize"
-[image4]: ./images/histogram_post.png "Preprocessed Histogram"
-[image5]: ./images/brightness.png "Random Brightness"
-[image6]: ./images/rotate.png "Random Rotation"
-
 ---
 ## Data Set Summary & Exploration
 
@@ -33,7 +24,9 @@ This project explores how to use TensorFlow to train a neural network to recogni
 
 The original data set contained an uneven distribution of images amoungst the traffic sign classes with the minimum  of 180 and a maximum of 2010 images in a single class. The histogram below shows the frequency of images in each of the data sets (training, validation, testing) with the frequency of on the y-axis and sign classification on the x-axis.
 
-![alt text][image1]
+<p align="center">
+  <img src="./images/histogram_raw.png">
+</p>
 
 ---
 ## Design & Test a Model Architecture
@@ -43,18 +36,23 @@ The original data set contained an uneven distribution of images amoungst the tr
 #### Grayscaling the Images
 The images were converted to grayscale reducing their size from 32x32x3 to 32x32x1 which ultimately reduces the overhead for the neural network by a third. Grayscale allows an image to be represented as shades and can better be converted into gradients than if using an RGB image. Since TensorFlow is looking for a variable of size (?, 32, 32, 1) to train the network, I experienced issues with image size when converting to scale with OpenCV since it deemed the fourth dimension of '1' unnecessary and returned an image set of size (?, 32, 32) which is incompatible. Instead, I used numpy.sum() with option `keepdims=True` to average the three colour channels to a single value while maintaining a compatible shape. 
 
-![alt text][image2]
+<p align="center">
+  <img src="./images/grayscale.png">
+</p>
 
 #### Normalize the Images
 The grayscaled images were normalized from range (0,255) to (-1,1) ...
 
-![alt text][image3]
+<p align="center">
+  <img src="./images/normalize.png">
+</p>
 
 #### Augment Training Data Set
 Since the data set was unevenly distributed, my worry was that the network would train more on certain signs more than others. To even the playing field I simply concatenated the images of each class to themselves until they reached a minimum threshold provided (4000 in my case) so that all the classes would have an equal prediction accuracy.
 
-![alt text][image4]
-
+<p align="center">
+  <img src="./images/histogram_post.png">
+</p>
 
 #### 2. Model Architecture
 
@@ -68,7 +66,6 @@ Since the data set was unevenly distributed, my worry was that the network would
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
 | Convolution 3x3     	| 1x1 stride, valid padding, outputs 1x1x400 	|
 | RELU					|												|
-
 | Flatten          | outputs 400  |
 | Concatenate      | outputs 800  |
 | Dropout          |   | 
@@ -80,7 +77,10 @@ Since the data set was unevenly distributed, my worry was that the network would
 
 To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. The images and labels were shuffled to prevent the model from learning the order of the images and to reduce the probability of getting multiple images of the same time in a row since the raw data sets are organized in clumps. Since there are multiple of the same images in the data set from the augmentation step to even out the frequencies of each image, we need to differentiate the images from each other by applying a random rotation (left) and randomly adjusting the brightness (right).
 
-![alt text][image5] | ![alt text][image6]
+<p float="center">
+  <img src="./images/rotate.png" />
+  <img src="./images/brightness.png" />
+</p>
 
 The training parameters used did not differ much from the LeNet lab, with exception to a slightly lower learning rate and several more epochs to account for the lower rate.
 
