@@ -100,13 +100,20 @@ The training parameters used did not differ much from the LeNet lab, with except
 
 ---
 ## 4. Approach for Training Model
+The final model results were a validation set accuracy of 95.2% and a test set accuracy of 93.0%. Initially, the model architecture from the lab was chosen to train the model as demonstrated in the course project notes however this deemed unsatisfactory for the reaching the necessary model accuracy. In order to increase the model accuracy, steps were added as suggested by the course lecture material.
 
-Final model results were:
-* validation set accuracy of 95.2%
-* test set accuracy of 93.0%
+### 4.1 Adding Dropout
+...
 
-... more to come
- 
+### 4.2 Modifying Shape
+...
+
+### 4.3 Tuning Hyperparameters
+...
+
+<p align="center">
+  <img src="./images/error.png" />
+</p>
 
 ---
 ## 5. Test a Model on New Images
