@@ -68,19 +68,26 @@ Since the data set was unevenly distributed, my worry was that the network would
  
 ---
 ## 3. Training Model
+To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. Since a large amount of data was augmented there will be many repeated images in the data set, so by randomizing the data it will help differientiate the data set to create unique images.
 
-To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. The images and labels were shuffled to prevent the model from learning the order of the images and to reduce the probability of getting multiple images of the same time in a row since the raw data sets are organized in clumps. Since there are multiple of the same images in the data set from the augmentation step to even out the frequencies of each image, we need to differentiate the images from each other by applying a random rotation and randomly adjusting the brightness.
+### 3.1 Shuffle the Data
+To prevent the model from memorizing the order of images, the data is shuffled at random every time while maintaining the alignment between the image and the respective label. The master data set is left untouched as to prevent irreversible damage and a copy is made each time on which the SelectionTool() actions are performed on.
 
+### 3.2 Random Rotation
+All the images are randomly rotated 90&deg left or right, or left the same. Experimentation with rotating at angles between 0-90 was ommited as the resulting image left a black border around the perimeter that seemed to through false classifications from gradients created by artifacts.
 
 <p float="center">
   <img src="./images/rotate.png" />
 </p>
 
+### 3.3 Random Brightness
+Each image in the data set is adjusted for brightness, either increasing or decreasing the average value of the pixels each time. Again, it is import to note that the original data set is copied each time to avoid the case where an image is continually increased in brightness until fully saturated and the image data is lost.
+
 <p float="center">
   <img src="./images/brightness.png" />
 </p>
 
-
+### 3.4 Model Parameters
 The training parameters used did not differ much from the LeNet lab, with exception to a slightly lower learning rate and several more epochs to account for the lower rate.
 
 
@@ -107,7 +114,7 @@ Final model results were:
 
 ### 5.1 German Traffic Signs from the Web
 
-Here are six German traffic signs that I found on the web after grayscale and normalization:
+German traffic signs found from the web after applying grayscale and normalization.
 
 <p float="center">
   <img src="./images/custom_images.png" />
@@ -115,7 +122,6 @@ Here are six German traffic signs that I found on the web after grayscale and no
 
 
 ### 5.2 Model Predictions
-Here are the results of the prediction:
 
 | Image			        |     Prediction	       | 
 |:-----------------:|:----------------------:| 
