@@ -1,6 +1,6 @@
 # **Traffic Sign Recognition** 
 
-This project explores how to use TensorFlow to train a neural network to recognize German traffic signs. A data set provided by Udacity contains a large sample set of 32x32 images and their corresponding classifer. The goals for this project are to :
+This project explores how to use TensorFlow to train a neural network to recognize German traffic signs. A data set provided by Udacity contains a large sample set of 32x32 images and their corresponding classifer.
 
 ---
 ## 1. Data Set Summary & Exploration
