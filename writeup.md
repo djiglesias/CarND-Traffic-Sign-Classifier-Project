@@ -103,13 +103,13 @@ The training parameters used did not differ much from the LeNet lab, with except
 The final model results were a validation set accuracy of 95.2% and a test set accuracy of 93.0%. Initially, the model architecture from the lab was chosen to train the model as demonstrated in the course project notes however this deemed unsatisfactory for the reaching the necessary model accuracy. In order to increase the model accuracy, steps were added as suggested by the course lecture material.
 
 ### 4.1 Adding Dropout
-...
+A dropout layer was added at the end of layer 4 and was set to 50.0% to set half of the weights to zero forcing the model to learn redundant methods for classifying images. However, for the evaluation of the model against the validation and testing data sets the dropout value was restored to 100% so that no values were dropped.
 
 ### 4.2 Modifying Shape
-...
+The model was kept at an input shape of (?, 32, 32, 1) rather than switching to (?, 32, 32, 3) since the data being feed into the model was grayscale and not RGB images. However, the model is dynamic so it can handle grayscale or rgb images regardless.
 
 ### 4.3 Tuning Hyperparameters
-...
+To increase the model accuracy a series of iterations of the training rate was attempted starting by reducing it by half to 0.0005, but after several runs the final value was set to 0.0008. Reducing the training rate required more than 10 epochs fully train, therefore the model was increased to 50 epochs but after watching the model train it was decided that 30 epochs was sufficient. The hyperparameters mu, sigma, and batch size were unaltered from the original model. 
 
 <p align="center">
   <img src="./images/error.png" />
