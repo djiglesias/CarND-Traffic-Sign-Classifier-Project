@@ -49,7 +49,7 @@ Since the data set was unevenly distributed, my worry was that the network would
 </p>
 
 ### 2.2 Model Architecture
-
+  
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x1 Grayscale image   							| 
@@ -65,7 +65,6 @@ Since the data set was unevenly distributed, my worry was that the network would
 | Dropout          |   | 
 | Fully connected		| outputs 43					|
 
- 
 ---
 ## 3. Training Model
 To train the model several steps were performed to randomize the data before each epoch that included shuffling, rotating, and altering the brightness randomly. Since a large amount of data was augmented there will be many repeated images in the data set, so by randomizing the data it will help differientiate the data set to create unique images.
@@ -76,14 +75,14 @@ To prevent the model from memorizing the order of images, the data is shuffled a
 ### 3.2 Random Rotation
 All the images are randomly rotated 90&deg left or right, or left the same. Experimentation with rotating at angles between 0-90 was ommited as the resulting image left a black border around the perimeter that seemed to through false classifications from gradients created by artifacts.
 
-<p float="center">
+<p align="center">
   <img src="./images/rotate.png" />
 </p>
 
 ### 3.3 Random Brightness
 Each image in the data set is adjusted for brightness, either increasing or decreasing the average value of the pixels each time. Again, it is import to note that the original data set is copied each time to avoid the case where an image is continually increased in brightness until fully saturated and the image data is lost.
 
-<p float="center">
+<p align="center">
   <img src="./images/brightness.png" />
 </p>
 
@@ -116,7 +115,7 @@ Final model results were:
 
 German traffic signs found from the web after applying grayscale and normalization.
 
-<p float="center">
+<p align="center">
   <img src="./images/custom_images.png" />
 </p>
 
@@ -139,6 +138,6 @@ The model was able to correctly guess 5 of the 6 traffic signs, which gives an a
 ### 5.3 Model Accuracy
 To provide some insight to the model predictions, the below image shows the input image on the left hand side followed by the top five model predictions with their confidence level in percent. For the first five images it can be seen that the model predicted the sign classification correctly with 100.0% confidence while showing 0.0% for the remaining images, however the last image was misclassified and showed a 99.0% confidence. 
 
-<p float="center">
+<p align="center">
   <img src="./images/prediction.png" />
 </p>
