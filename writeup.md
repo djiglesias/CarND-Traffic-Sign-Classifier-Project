@@ -53,12 +53,12 @@ Since the data set was unevenly distributed, my worry was that the network would
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x1 Grayscale image   							| 
-| Convolution 3x3     	| 1x1 stride, valid padding, outputs 28x28x6 	|
+| Convolution 5x5    	| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Convolution 3x3     	| 1x1 stride, valid padding, outputs 14x14x6 	|
+| Convolution 5x5    	| 1x1 stride, valid padding, outputs 14x14x6 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
-| Convolution 3x3     	| 1x1 stride, valid padding, outputs 1x1x400 	|
+| Convolution 5x5    	| 1x1 stride, valid padding, outputs 1x1x400 	|
 | RELU					|												|
 | Flatten          | outputs 400  |
 | Concatenate      | outputs 800  |
@@ -120,7 +120,17 @@ To increase the model accuracy a series of iterations of the training rate was a
 
 ### 5.1 German Traffic Signs from the Web
 
-German traffic signs found from the web after applying grayscale and normalization.
+For this project six German traffic signs were found on the web and used to test the accuracy of the model on images not previously viewed by the model. The majority of the signs contain features that are easy to classify by the model as they are simple geometric shapes with large edges (either straight or round) with exception one which contains multiple fine details and proves difficult for the model to classify.
+
+
+| Image			                   |     Class	    | Pros | Cons |
+|:----------------------------:|:-------------:|:-------------------------------:|:-----------------------:|
+| <img src="./images/18.png"/>  | 18 | Large simple shapes, triangular sign with thick border, no small details on actual sign |  Messy background, cropped sign below |
+| <img src="./images/1.png"/>   | 1  | Large simple shapes, circular sign with thick border, no small details on actual sign | Messy background, large shapes behind image |
+| <img src="./images/3.png"/>   | 3  | Large simple shapes, circular sign with thick border, no small details on actual sign, clear background | Cropped sign above |
+| <img src="./images/38.png"/>  | 38 | Large simple shapes, circular sign with thick border, no small details on actual sign | Minor noise in bottom left side of corner  |
+| <img src="./images/34.png"/>  | 34 | Large simple shapes, circular sign with thick border, no small details on actual sign | Minor background noise |
+| <img src="./images/25.png"/>  | 25 | Large simple triangular sign with thick border, clear background | Small details on actual sign, post running vertically behind sign |
 
 <p align="center">
   <img src="./images/custom_images.png" />
